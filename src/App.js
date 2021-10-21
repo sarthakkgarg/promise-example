@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import React from 'react';
 
 function App() {
+  const [status , setStatus] = React.useState(0)
+  useEffect(() => {
+    fetchAPI()
+  }, [])
+  
+  const fetchAPI = async () => {
+    const res = await fetch("https://api.disneyapi.dev/", {
+   
+  }).then ((res) => {
+    console.log("Promise Success.", res)
+    setStatus(res.status)
+  }).catch((err) => {
+    console.log("Promise Failed." , err)
+  })
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <h1 style={{ display:"flex", justifyContent:"center", alignItems:"center", height:"100%", fontSize:"300px"}}>
+      {status}
+      </h1>
+    </>
   );
 }
 
